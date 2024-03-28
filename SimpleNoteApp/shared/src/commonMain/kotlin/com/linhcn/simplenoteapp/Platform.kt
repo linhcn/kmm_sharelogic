@@ -12,14 +12,14 @@ expect annotation class CommonParcelize()
 expect interface CommonParcelable
 
 
+// For Android Parceler
+expect interface CommonParceler<T>
 @OptIn(ExperimentalMultiplatform::class)
 @OptionalExpectation
 @Retention(AnnotationRetention.SOURCE)
 @Repeatable
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 expect annotation class CommonTypeParceler<T, P : CommonParceler<in T>>()
-// For Android Parceler
-expect interface CommonParceler<T>
 
 
 // For Android @TypeParceler to convert LocalDateTimeParceler

@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.sqldelight)
     id("kotlin-parcelize")
     id("kotlin-kapt")
-    kotlin("plugin.serialization") version "1.5.30"
+    // kotlin("plugin.serialization") version "1.5.30"
 }
 
 kotlin {
@@ -32,7 +32,7 @@ kotlin {
             //put your multiplatform dependencies here
             implementation(libs.sqldelight.runtime)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.serialization.json)
+            // implementation(libs.kotlinx.serialization.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

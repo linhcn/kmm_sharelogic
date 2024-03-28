@@ -10,10 +10,7 @@ import com.linhcn.simplenoteapp.presentation.RoseLavenderHex
 import com.linhcn.simplenoteapp.presentation.WaterSpoutHex
 import com.linhcn.simplenoteapp.presentation.YellowPastelHex
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Serializable
-import kotlinx.datetime.serializers.LocalDateTimeIso8601Serializer
 
-@Serializable
 @CommonParcelize
 data class Note(
     val id: Long?,
@@ -21,7 +18,6 @@ data class Note(
     val content: String,
     val colorHex: Long,
 
-    @Serializable(with = LocalDateTimeIso8601Serializer::class)
     @CommonTypeParceler<LocalDateTime, LocalDateTimeParceler>()
     val createDate: LocalDateTime
 ): CommonParcelable {
