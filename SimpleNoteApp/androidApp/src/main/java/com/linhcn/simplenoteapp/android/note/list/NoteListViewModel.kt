@@ -27,24 +27,24 @@ class NoteListViewModel @Inject constructor(
     private val isSearchActive = savedStateHandle.getStateFlow("isSearchActive", false)
 
     val state = combine(notes, searchValue, isSearchActive) { notes, searchValue, isSearchActive ->
-        NoteListState(notes, searchValue, isSearchActive)
+        NoteListState(searchNotes.invoke(notes, searchValue), searchValue, isSearchActive)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 
-    init {
-        viewModelScope.launch {
-            (1..20).forEach {
-                noteDataSource.insertNote(
-                    Note(
-                        id = null,
-                        title = "Note $it",
-                        content = "Content $it",
-                        colorHex = Note.generateRandomColor(),
-                        createDate = DateTimeUtil.now()
-                    )
-                )
-            }
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            (1..20).forEach {
+//                noteDataSource.insertNote(
+//                    Note(
+//                        id = null,
+//                        title = "Note $it",
+//                        content = "Content $it",
+//                        colorHex = Note.generateRandomColor(),
+//                        createDate = DateTimeUtil.now()
+//                    )
+//                )
+//            }
+//        }
+//    }
 
     fun loadNotes() {
         viewModelScope.launch {
@@ -58,6 +58,9 @@ class NoteListViewModel @Inject constructor(
 
     fun onActiveSearch() {
         savedStateHandle["isSearchActive"] = !isSearchActive.value
+        if (!isSearchActive.value) {
+            savedStateHandle["searchValue"] = ""
+        }
     }
 
     fun deleteNoteById(id: Long) {

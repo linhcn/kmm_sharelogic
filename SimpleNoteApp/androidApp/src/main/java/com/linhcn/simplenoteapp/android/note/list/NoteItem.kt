@@ -19,10 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.linhcn.simplenoteapp.android.MyApplicationTheme
 import com.linhcn.simplenoteapp.domain.note.Note
 import com.linhcn.simplenoteapp.domain.time.DateTimeUtil
 
@@ -46,7 +48,12 @@ fun NoteItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = note.title, fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+            Text(
+                text = note.title,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp,
+                style = TextStyle(color = Color.Black)
+            )
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Delete note",
@@ -54,22 +61,28 @@ fun NoteItem(
             )
         }
         Spacer(modifier = Modifier.height(5.dp))
-        Text(text = note.content, fontWeight = FontWeight.Light)
+        Text(
+            text = note.content,
+            fontWeight = FontWeight.Light,
+            style = TextStyle(color = Color.Black)
+        )
     }
 }
 
 @Preview
 @Composable
 fun NoteItemPreview() {
-    NoteItem(
-        note = Note(
-            null,
-            title = "Example note",
-            content = "Example note content",
-            Note.generateRandomColor(),
-            DateTimeUtil.now()
-        ),
-        onNoteClick = {},
-        onNoteDelete = {}
-    )
+    MyApplicationTheme(darkTheme = true) {
+        NoteItem(
+            note = Note(
+                null,
+                title = "Example note",
+                content = "Example note content",
+                Note.generateRandomColor(),
+                DateTimeUtil.now()
+            ),
+            onNoteClick = {},
+            onNoteDelete = {}
+        )
+    }
 }

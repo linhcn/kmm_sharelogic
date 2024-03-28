@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqldelight)
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.5.30"
 }
 
 kotlin {
@@ -29,14 +32,13 @@ kotlin {
             //put your multiplatform dependencies here
             implementation(libs.sqldelight.runtime)
             implementation(libs.kotlinx.datetime)
-//            implementation(libs.koin.core)
+            implementation(libs.kotlinx.serialization.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.android.driver)
-//            implementation(libs.koin.android)
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)

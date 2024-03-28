@@ -3,11 +3,15 @@ package com.linhcn.simplenoteapp.android.note.list
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -30,6 +34,7 @@ import androidx.navigation.NavController
 import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.HideableSearchTextField
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteListScreen(
     navController: NavController,
@@ -53,12 +58,15 @@ fun NoteListScreen(
             }
         }
     ) { padding ->
-        Column {
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .padding(horizontal = 15.dp)
+        ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
             ) {
                 HideableSearchTextField(
                     value = state.searchValue,
@@ -81,6 +89,24 @@ fun NoteListScreen(
                         text = "All notes",
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
+                    )
+                }
+            }
+            LazyColumn {
+                items(
+                    items = state.notes,
+                    key = {
+                        it.id.toString()
+                    }
+                ) { note ->
+                    NoteItem(
+                        note = note,
+                        onNoteClick = { navController.navigate("note_detail/${note.id}") },
+                        onNoteDelete = { viewModel.deleteNoteById(note.id!!) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp, horizontal = 10.dp)
+                            .animateItemPlacement()
                     )
                 }
             }
