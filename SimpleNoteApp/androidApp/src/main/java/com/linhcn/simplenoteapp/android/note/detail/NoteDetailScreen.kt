@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -98,45 +99,45 @@ fun NoteDetailHeader(
     ) {
         Button(
             onClick = onBackClick,
-            modifier = Modifier.size(60.dp),
+            modifier = Modifier.size(50.dp),
             shape = MaterialTheme.shapes.large,
             colors = ButtonColors(
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
             ),
             contentPadding = PaddingValues(5.dp)
         ) {
             Image(
                 imageVector = Icons.Default.KeyboardArrowLeft,
                 contentDescription = "Back",
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(30.dp),
                 colorFilter = ColorFilter.lighting(
-                    MaterialTheme.colorScheme.onSurface,
-                    MaterialTheme.colorScheme.onSurface,
+                    MaterialTheme.colorScheme.onSecondary,
+                    MaterialTheme.colorScheme.onSecondary,
                 )
             )
         }
         Button(
             onClick = onSaveClick,
-            modifier = Modifier.size(60.dp),
+            modifier = Modifier.size(50.dp),
             shape = MaterialTheme.shapes.large,
             colors = ButtonColors(
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.colorScheme.surface,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.secondary,
             ),
             contentPadding = PaddingValues(5.dp)
         ) {
             Image(
                 imageVector = Icons.Default.Check,
-                contentDescription = "Back",
-                modifier = Modifier.size(40.dp),
+                contentDescription = "Save",
+                modifier = Modifier.size(30.dp),
                 colorFilter = ColorFilter.lighting(
-                    MaterialTheme.colorScheme.onSurface,
-                    MaterialTheme.colorScheme.onSurface,
+                    MaterialTheme.colorScheme.onSecondary,
+                    MaterialTheme.colorScheme.onSecondary,
                 )
             )
         }
@@ -175,13 +176,15 @@ fun NoteDetailEditor(
 @Composable
 @Preview
 fun NoteDetailScreenPreview() {
-    MyApplicationTheme(darkTheme = true) {
-        NoteDetailContent(
-            onBackClick = { /*TODO*/ },
-            onSaveClick = { /*TODO*/ },
-            onTitleChange = {},
-            onContentChange = {},
-            state = NoteDetailState()
-        )
+    MyApplicationTheme(darkTheme = false) {
+        Surface {
+            NoteDetailContent(
+                onBackClick = { /*TODO*/ },
+                onSaveClick = { /*TODO*/ },
+                onTitleChange = {},
+                onContentChange = {},
+                state = NoteDetailState()
+            )
+        }
     }
 }

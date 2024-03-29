@@ -3,6 +3,9 @@ package com.linhcn.simplenoteapp.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,24 +21,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                val navController = rememberNavController()
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "note_list") {
-                    composable("note_list") {
-                        NoteListScreen(
-                            navController = navController
-                        )
-                    }
-                    composable(
-                        "note_detail/{note_id}",
-                        arguments = listOf(navArgument(name = "note_id") {
-                            type = NavType.LongType
-                            defaultValue = -1L
-                        })
-                    ) {
-                        NoteDetailScreen(
-                            navController = navController
-                        )
+                    NavHost(navController = navController, startDestination = "note_list") {
+                        composable("note_list") {
+                            NoteListScreen(
+                                navController = navController
+                            )
+                        }
+                        composable(
+                            "note_detail/{note_id}",
+                            arguments = listOf(navArgument(name = "note_id") {
+                                type = NavType.LongType
+                                defaultValue = -1L
+                            })
+                        ) {
+                            NoteDetailScreen(
+                                navController = navController
+                            )
+                        }
                     }
                 }
             }

@@ -5,9 +5,11 @@ import com.linhcn.simplenoteapp.CommonParcelize
 import com.linhcn.simplenoteapp.CommonTypeParceler
 import com.linhcn.simplenoteapp.LocalDateTimeParceler
 import com.linhcn.simplenoteapp.presentation.GreenLightHex
+import com.linhcn.simplenoteapp.presentation.PaleVioletHex
 import com.linhcn.simplenoteapp.presentation.PinkSalmonLightHex
 import com.linhcn.simplenoteapp.presentation.RoseLavenderHex
 import com.linhcn.simplenoteapp.presentation.WaterSpoutHex
+import com.linhcn.simplenoteapp.presentation.YellowOrangeHex
 import com.linhcn.simplenoteapp.presentation.YellowPastelHex
 import kotlinx.datetime.LocalDateTime
 
@@ -20,7 +22,7 @@ data class Note(
 
     @CommonTypeParceler<LocalDateTime, LocalDateTimeParceler>()
     val createDate: LocalDateTime
-): CommonParcelable {
+) : CommonParcelable {
     companion object {
 
         private val colors = listOf(
@@ -28,7 +30,9 @@ data class Note(
             PinkSalmonLightHex,
             YellowPastelHex,
             WaterSpoutHex,
-            RoseLavenderHex
+            RoseLavenderHex,
+            PaleVioletHex,
+            YellowOrangeHex
         )
 
         fun generateRandomColor() = colors.random()

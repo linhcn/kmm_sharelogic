@@ -86,7 +86,7 @@ fun NoteListScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = "All notes",
+                        text = stringResource(id = R.string.notes),
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )

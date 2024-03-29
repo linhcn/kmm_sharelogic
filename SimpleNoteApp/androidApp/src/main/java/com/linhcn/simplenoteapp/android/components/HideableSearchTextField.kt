@@ -57,7 +57,7 @@ fun HideableSearchTextField(
                 isHintVisible = value.isEmpty(),
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(50.dp))
-                    .background(color = MaterialTheme.colorScheme.surface)
+                    .background(color = MaterialTheme.colorScheme.secondary)
                     .fillMaxWidth()
                     .padding(15.dp)
                     .padding(start = 10.dp, end = 35.dp)
@@ -74,7 +74,7 @@ fun HideableSearchTextField(
                 onClick = onSearchClick,
                 modifier = Modifier
                     .clip(shape = MaterialTheme.shapes.large)
-                    .background(MaterialTheme.colorScheme.surface)
+                    .background(MaterialTheme.colorScheme.secondary)
             ) {
                 Icon(imageVector = Icons.Filled.Search, contentDescription = "Open Search")
             }

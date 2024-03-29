@@ -32,14 +32,14 @@ class NoteDetailViewModel @Inject constructor(
         NoteDetailState(title, content, color)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteDetailState())
 
-    private var exitingNoteId: Long? = null
+    private var existingNoteId: Long? = null
 
     init {
         savedStateHandle.get<Long>("note_id").let { exitingNoteId ->
             if (exitingNoteId == null) {
                 return@let;
             }
-            this.exitingNoteId = exitingNoteId
+            this.existingNoteId = exitingNoteId
 
             viewModelScope.launch {
                 noteDataSource.getNoteById(exitingNoteId)?.let { note ->
@@ -63,7 +63,7 @@ class NoteDetailViewModel @Inject constructor(
         viewModelScope.launch {
             noteDataSource.insertNote(
                 Note(
-                    id = exitingNoteId,
+                    id =  if (existingNoteId == -1L) null else existingNoteId,
                     title = noteTitle.value,
                     content = noteContent.value,
                     colorHex = noteColor.value,

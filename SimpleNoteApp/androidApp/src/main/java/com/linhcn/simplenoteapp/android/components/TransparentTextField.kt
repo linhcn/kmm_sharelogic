@@ -2,9 +2,11 @@ package com.linhcn.simplenoteapp.android.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.linhcn.simplenoteapp.android.MyApplicationTheme
 
@@ -39,9 +42,11 @@ fun TransparentTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .onFocusChanged { state -> onFocusChanged(state) }
-        )
-        if (isHintVisible) {
-            Text(text = hint, style = textStyle.copy(color = Color(0xFFCCCCCC)))
+        ) { innerTextField ->
+            if (isHintVisible) {
+                Text(text = hint, style = textStyle.copy(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)))
+            }
+            innerTextField()
         }
     }
 }
