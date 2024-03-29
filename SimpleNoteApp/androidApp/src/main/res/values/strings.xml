@@ -2,4 +2,6 @@
 <resources>
     <string name="seach">Search</string>
     <string name="search_by_the_keyword">Search by the keyword...</string>
+    <string name="title">Title</string>
+    <string name="type_something">Type something...</string>
 </resources>

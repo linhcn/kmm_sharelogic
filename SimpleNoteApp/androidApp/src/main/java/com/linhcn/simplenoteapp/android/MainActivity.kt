@@ -28,13 +28,12 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(
                         "note_detail/{note_id}",
-                        arguments = listOf(navArgument(name = "noteId") {
+                        arguments = listOf(navArgument(name = "note_id") {
                             type = NavType.LongType
                             defaultValue = -1L
                         })
                     ) {
                         NoteDetailScreen(
-                            noteId = it.arguments?.getLong("noteId") ?: -1L,
                             navController = navController
                         )
                     }
