@@ -13,8 +13,8 @@ struct NoteListScreen: View {
     
     private var noteDataSource: NoteDataSource
     @StateObject var viewModel = NoteListViewModel(noteDataSource: nil)
-    @State private var isNoteSelected = false
-    @State private var selectedNoteId: Int64? = nil
+    @State private var noteSelected: Note? = nil
+    @State private var isNoteSelected: Bool = false
     
     init(noteDataSource: NoteDataSource) {
         self.noteDataSource = noteDataSource
@@ -22,55 +22,56 @@ struct NoteListScreen: View {
     
     var body: some View {
         VStack {
-            // header
-            ZStack {
-                HideableSearchTextField(
-                    onActiveSearch: {
-                        viewModel.onActiveSearch()
-                    },
-                    onSearchChanged: { value in
-                        
-                    },
-                    isSearchActive: viewModel.isSearchActive,
-                    destinationProvider: {
-                        NoteDetailScreen(noteDataSource: noteDataSource, noteId: nil)
-                    },
-                    searchValue: $viewModel.searchValue
-                )
-                .frame(maxWidth: .infinity, minHeight: 40)
-                .padding()
-            }
-            // list notes
-            List {
-                ForEach(viewModel.filteredNotes, id: \.self.id) { note in
-                    Button(
-                        action: {
-                            isNoteSelected = true
-                            selectedNoteId = note.id?.int64Value
-                        }
-                    ) {
-                        NoteItem(
-                            note: note,
-                            onDeleteClick: {
-                                viewModel.deleteNoteById(id: note.id?.int64Value)
-                            }
-                        )
-                    }
-                    .navigationDestination(
-                        isPresented: $isNoteSelected,
-                        destination: {
-                            NoteDetailScreen(noteDataSource: noteDataSource, noteId: selectedNoteId)
-                        }
-                    )
+            header
+            noteList
+                .onAppear {
+                    viewModel.loadNotes()
                 }
-            }.onAppear {
-                viewModel.loadNotes()
-            }
-            .listStyle(.plain)
-            .listRowSeparator(.hidden)
         }.onAppear {
             viewModel.setNoteDataSource(noteDataSource: noteDataSource)
         }
+        .navigationDestination(isPresented: $isNoteSelected, destination: {
+            NoteDetailScreen(noteDataSource: noteDataSource, noteId: noteSelected?.id?.int64Value)
+        })
+    }
+    
+    var header: some View {
+        HStack {
+            HideableSearchTextField(
+                onActiveSearch: {
+                    viewModel.onActiveSearch()
+                },
+                isSearchActive: viewModel.isSearchActive,
+                searchValue: $viewModel.searchValue
+            )
+            .frame(minHeight: 40)
+            Spacer(minLength: 20)
+            NavigationLink(destination: NoteDetailScreen(noteDataSource: noteDataSource)) {
+                Image(systemName: "plus")
+            }
+            
+        }
+        .padding()
+    }
+    
+    var noteList: some View {
+        List {
+            ForEach(viewModel.filteredNotes, id: \.self.id) { note in
+                    NoteItem(
+                        note: note,
+                        onDeleteClick: {
+                            viewModel.deleteNoteById(id: note.id?.int64Value)
+                        },
+                        onNoteItemClick: { note in
+                            isNoteSelected = true
+                            noteSelected = note
+                        }
+                    )
+            }
+            
+        }
+        .listStyle(.plain)
+        .listRowSeparator(.hidden)
     }
 }
 

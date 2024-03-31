@@ -35,6 +35,7 @@ extension NoteDetailScreen {
                 noteDataSource?.getNoteById(id: self.noteId!, completionHandler: { note, error in
                     self.noteTitle = note?.title ?? ""
                     self.noteContent = note?.content ?? ""
+                    self.noteColor =  note?.colorHex ?? self.noteColor
                 })
             }
         }

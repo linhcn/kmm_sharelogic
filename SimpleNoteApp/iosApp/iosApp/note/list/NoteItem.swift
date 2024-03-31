@@ -13,7 +13,7 @@ struct NoteItem: View {
     
     var note: Note
     var onDeleteClick: () -> Void
-
+    var onNoteItemClick: (Note) -> Void
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -22,9 +22,12 @@ struct NoteItem: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                 Spacer()
+                
                 Button(action: onDeleteClick) {
                     Image(systemName: "xmark")
                 }
+                .buttonStyle(.plain)
+                
             }.padding(.bottom, 3)
             
             Text(note.content)
@@ -34,6 +37,9 @@ struct NoteItem: View {
         .padding()
         .background(Color(hex: note.colorHex))
         .clipShape(RoundedRectangle(cornerRadius: 6.0))
+        .onTapGesture {
+            onNoteItemClick(note)
+        }
     }
 }
 
@@ -47,7 +53,8 @@ struct NoteItem_Previews: PreviewProvider {
                 colorHex: 0xFF1234,
                 createDate: DateTimeUtil().now()
             ),
-            onDeleteClick: {}
+            onDeleteClick: {},
+            onNoteItemClick: {note in}
         )
     }
 }

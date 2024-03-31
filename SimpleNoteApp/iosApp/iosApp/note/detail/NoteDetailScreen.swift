@@ -31,15 +31,20 @@ struct NoteDetailScreen: View {
                 TextField("Type something...", text: $viewModel.noteContent)
                     .font(.body)
                 Spacer()
-            }.padding()
+            }
+            .padding()
+            .onAppear {
+                viewModel.setParamAndLoadNote(noteDataSource: noteDataSource, noteId: noteId)
+                print("NoteDetailScreen onAppear \(String(describing: noteId))")
+            }
         }
+        .background(Color(hex: viewModel.noteColor))
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button(
                 action: {presentationMode.wrappedValue.dismiss()},
                 label: { Image(systemName: "chevron.backward") }
-            )
-            ,
+            ),
             trailing: Button(
                 action: {
                     viewModel.saveNote {
@@ -48,11 +53,7 @@ struct NoteDetailScreen: View {
                 },
                 label: {Image(systemName: "checkmark")}
             )
-            
         )
-        .onAppear {
-            viewModel.setParamAndLoadNote(noteDataSource: self.noteDataSource, noteId: self.noteId)
-        }
     }
     
 }

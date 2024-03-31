@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Simple_Note_App"
+rootProject.name = "SimpleNoteApp"
 include(":androidApp")
 include(":shared")
