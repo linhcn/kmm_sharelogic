@@ -22,13 +22,8 @@ struct NoteListScreen: View {
     
     var body: some View {
         VStack {
+            // header
             ZStack {
-                NavigationLink(
-                    destination: NoteDetailScreen(),
-                    isActive: $isNoteSelected,
-                    label: {EmptyView()}
-                ).hidden()
-                
                 HideableSearchTextField(
                     onActiveSearch: {
                         viewModel.onActiveSearch()
@@ -38,20 +33,22 @@ struct NoteListScreen: View {
                     },
                     isSearchActive: viewModel.isSearchActive,
                     destinationProvider: {
-                        NoteDetailScreen()
+                        NoteDetailScreen(noteDataSource: noteDataSource, noteId: nil)
                     },
                     searchValue: $viewModel.searchValue
                 )
                 .frame(maxWidth: .infinity, minHeight: 40)
                 .padding()
             }
-            
+            // list notes
             List {
                 ForEach(viewModel.filteredNotes, id: \.self.id) { note in
-                    Button(action: {
-                        isNoteSelected = true
-                        selectedNoteId = note.id?.int64Value
-                    }) {
+                    Button(
+                        action: {
+                            isNoteSelected = true
+                            selectedNoteId = note.id?.int64Value
+                        }
+                    ) {
                         NoteItem(
                             note: note,
                             onDeleteClick: {
@@ -59,6 +56,9 @@ struct NoteListScreen: View {
                             }
                         )
                     }
+                    .navigationDestination(isPresented: $isNoteSelected, destination: {
+                        NoteDetailScreen(noteDataSource: noteDataSource, noteId: selectedNoteId)
+                    })
                 }
             }.onAppear {
                 viewModel.loadNotes()

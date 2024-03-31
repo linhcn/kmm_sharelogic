@@ -16,6 +16,7 @@
 		E44CACEB2BB5C61A00979DC7 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44CACEA2BB5C61A00979DC7 /* NoteItem.swift */; };
 		E44CACEE2BB5CA9600979DC7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44CACED2BB5CA9600979DC7 /* Color.swift */; };
 		E44CACF12BB5CB2B00979DC7 /* NoteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44CACF02BB5CB2B00979DC7 /* NoteListViewModel.swift */; };
+		E44CACF32BB86FDB00979DC7 /* NoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44CACF22BB86FDB00979DC7 /* NoteDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 		E44CACEA2BB5C61A00979DC7 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		E44CACED2BB5CA9600979DC7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E44CACF02BB5CB2B00979DC7 /* NoteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewModel.swift; sourceTree = "<group>"; };
+		E44CACF22BB86FDB00979DC7 /* NoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				E44CACE52BB5BCAB00979DC7 /* NoteDetailScreen.swift */,
+				E44CACF22BB86FDB00979DC7 /* NoteDetailViewModel.swift */,
 			);
 			path = detail;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				E44CACF32BB86FDB00979DC7 /* NoteDetailViewModel.swift in Sources */,
 				E44CACE92BB5BFFA00979DC7 /* HideableSearchTextField.swift in Sources */,
 				E44CACE62BB5BCAB00979DC7 /* NoteDetailScreen.swift in Sources */,
 				E44CACE42BB5BC9000979DC7 /* NoteListScreen.swift in Sources */,
