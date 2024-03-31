@@ -56,9 +56,12 @@ struct NoteListScreen: View {
                             }
                         )
                     }
-                    .navigationDestination(isPresented: $isNoteSelected, destination: {
-                        NoteDetailScreen(noteDataSource: noteDataSource, noteId: selectedNoteId)
-                    })
+                    .navigationDestination(
+                        isPresented: $isNoteSelected,
+                        destination: {
+                            NoteDetailScreen(noteDataSource: noteDataSource, noteId: selectedNoteId)
+                        }
+                    )
                 }
             }.onAppear {
                 viewModel.loadNotes()
