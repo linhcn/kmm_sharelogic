@@ -9,7 +9,9 @@ sqldelight = "2.0.1"
 kotlinx-datetime = "0.4.0"
 dagger-hilt = "2.46"
 androidx-hilt-navigation-compose = "1.2.0"
-#kotlinx-serialization-json = "1.4.1"
+kotlinx-serialization-json = "1.4.1"
+decompose = "2.2.2"
+essenty = "1.3.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -25,7 +27,10 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt-navigation-compose" }
-#kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
+essenty-lifecycle-decompose = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

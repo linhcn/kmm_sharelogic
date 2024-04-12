@@ -55,4 +55,7 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    // decompose
+    implementation(libs.decompose)
+    implementation(libs.decompose.jetbrains)
 }

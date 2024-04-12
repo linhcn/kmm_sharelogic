@@ -5,45 +5,44 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.arkivanov.decompose.defaultComponentContext
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.linhcn.simplenoteapp.android.note.detail.NoteDetailScreen
 import com.linhcn.simplenoteapp.android.note.list.NoteListScreen
+import com.linhcn.simplenoteapp.presentation.nav.DefaultRootComponent
+import com.linhcn.simplenoteapp.presentation.nav.RootComponent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val root = DefaultRootComponent(
+            componentContext = defaultComponentContext(),
+        )
+
         setContent {
             MyApplicationTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    val navController = rememberNavController()
-
-                    NavHost(navController = navController, startDestination = "note_list") {
-                        composable("note_list") {
-                            NoteListScreen(
-                                navController = navController
-                            )
-                        }
-                        composable(
-                            "note_detail/{note_id}",
-                            arguments = listOf(navArgument(name = "note_id") {
-                                type = NavType.LongType
-                                defaultValue = -1L
-                            })
-                        ) {
-                            NoteDetailScreen(
-                                navController = navController
-                            )
-                        }
-                    }
+                    RootContent(component = root, Modifier.fillMaxSize())
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun RootContent(component: RootComponent, modifier: Modifier = Modifier) {
+    Children(stack = component.stack, modifier = modifier, animation = stackAnimation(slide())) {
+        when (val child = it.instance) {
+            is RootComponent.Child.NoteList -> NoteListScreen(noteListComponent = child.component)
+            is RootComponent.Child.NoteDetails -> NoteDetailScreen(noteDetailsComponent = child.component)
         }
     }
 }

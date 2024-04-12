@@ -33,24 +33,29 @@ import androidx.navigation.NavController
 import com.linhcn.simplenoteapp.android.MyApplicationTheme
 import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.TransparentTextField
+import com.linhcn.simplenoteapp.presentation.nav.note.NoteDetailsComponent
 
 @Composable
 fun NoteDetailScreen(
-    navController: NavController,
+    noteDetailsComponent: NoteDetailsComponent,
     viewModel: NoteDetailViewModel = hiltViewModel()
 ) {
 
     val state by viewModel.state.collectAsState()
     val hasNoteBeenSaved by viewModel.hasNoteBeenSaved.collectAsState()
 
+    LaunchedEffect(key1 = true, block = {
+        viewModel.loadNote(noteDetailsComponent.id)
+    })
+
     LaunchedEffect(key1 = hasNoteBeenSaved, block = {
         if (hasNoteBeenSaved) {
-            navController.popBackStack()
+            noteDetailsComponent.onBackToNoteListClicked()
         }
     })
 
     NoteDetailContent(
-        onBackClick = navController::popBackStack,
+        onBackClick = { noteDetailsComponent.onBackToNoteListClicked() },
         onSaveClick = viewModel::saveNote,
         onTitleChange = viewModel::onNoteTitleChanged,
         onContentChange = viewModel::onNoteContentChanged,

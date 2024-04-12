@@ -34,19 +34,17 @@ class NoteDetailViewModel @Inject constructor(
 
     private var existingNoteId: Long? = null
 
-    init {
-        savedStateHandle.get<Long>("note_id").let { exitingNoteId ->
-            if (exitingNoteId == null) {
-                return@let;
-            }
-            this.existingNoteId = exitingNoteId
+    fun loadNote(id: Long?) {
+        if (id == null) {
+            return
+        }
+        this.existingNoteId = id
 
-            viewModelScope.launch {
-                noteDataSource.getNoteById(exitingNoteId)?.let { note ->
-                    savedStateHandle["note_title"] = note.title
-                    savedStateHandle["note_content"] = note.content
-                    savedStateHandle["note_color"] = note.colorHex
-                }
+        viewModelScope.launch {
+            noteDataSource.getNoteById(existingNoteId!!)?.let { note ->
+                savedStateHandle["note_title"] = note.title
+                savedStateHandle["note_content"] = note.content
+                savedStateHandle["note_color"] = note.colorHex
             }
         }
     }

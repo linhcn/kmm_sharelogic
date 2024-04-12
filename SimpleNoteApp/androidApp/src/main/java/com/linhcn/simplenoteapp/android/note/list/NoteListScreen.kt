@@ -31,13 +31,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.arkivanov.decompose.ComponentContext
 import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.HideableSearchTextField
+import com.linhcn.simplenoteapp.presentation.nav.note.NoteListComponent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteListScreen(
-    navController: NavController,
+    noteListComponent: NoteListComponent,
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
 
@@ -49,7 +51,7 @@ fun NoteListScreen(
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { navController.navigate("note_detail/-1L") }) {
+            FloatingActionButton(onClick = noteListComponent.onAddNoteClicked) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add note",
@@ -101,7 +103,9 @@ fun NoteListScreen(
                 ) { note ->
                     NoteItem(
                         note = note,
-                        onNoteClick = { navController.navigate("note_detail/${note.id}") },
+                        onNoteClick = {
+                            noteListComponent.onItemClicked(note.id!!)
+                        },
                         onNoteDelete = { viewModel.deleteNoteById(note.id!!) },
                         modifier = Modifier
                             .fillMaxWidth()
