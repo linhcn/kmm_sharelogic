@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,29 +27,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.HideableSearchTextField
-import com.linhcn.simplenoteapp.presentation.nav.note.NoteListComponent
+import com.linhcn.simplenoteapp.presentation.nav.note.list.NoteListComponent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteListScreen(
-    noteListComponent: NoteListComponent,
-    viewModel: NoteListViewModel = hiltViewModel()
+    noteListComponent: NoteListComponent
 ) {
 
-    val state by viewModel.state.collectAsState()
+    val state by noteListComponent.state.subscribeAsState()
 
     LaunchedEffect(key1 = true, block = {
-        viewModel.loadNotes()
+        noteListComponent.loadNotes()
     })
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = noteListComponent.onAddNoteClicked) {
+            FloatingActionButton(onClick = noteListComponent::onAddNoteClicked) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add note",
@@ -73,9 +68,9 @@ fun NoteListScreen(
                 HideableSearchTextField(
                     value = state.searchValue,
                     isSearchActive = state.isSearchActive,
-                    onValueChange = viewModel::onSearchValueChange,
-                    onSearchClick = viewModel::onActiveSearch,
-                    onCloseClick = viewModel::onActiveSearch,
+                    onValueChange = noteListComponent::onSearchValueChange,
+                    onSearchClick = noteListComponent::onActiveSearch,
+                    onCloseClick = noteListComponent::onActiveSearch,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(90.dp),
@@ -96,7 +91,7 @@ fun NoteListScreen(
             }
             LazyColumn {
                 items(
-                    items = state.notes,
+                    items = state.noteList,
                     key = {
                         it.id.toString()
                     }
@@ -106,7 +101,7 @@ fun NoteListScreen(
                         onNoteClick = {
                             noteListComponent.onItemClicked(note.id!!)
                         },
-                        onNoteDelete = { viewModel.deleteNoteById(note.id!!) },
+                        onNoteDelete = { noteListComponent.deleteNoteById(note.id!!) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp, horizontal = 10.dp)

@@ -49,6 +49,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.decompose)
+            implementation(libs.jetbrains.kotlinx)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

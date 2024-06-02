@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -28,37 +27,28 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.linhcn.simplenoteapp.android.MyApplicationTheme
 import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.TransparentTextField
-import com.linhcn.simplenoteapp.presentation.nav.note.NoteDetailsComponent
+import com.linhcn.simplenoteapp.presentation.nav.note.detail.NoteDetailComponent
 
 @Composable
 fun NoteDetailScreen(
-    noteDetailsComponent: NoteDetailsComponent,
-    viewModel: NoteDetailViewModel = hiltViewModel()
+    noteDetailsComponent: NoteDetailComponent,
 ) {
 
-    val state by viewModel.state.collectAsState()
-    val hasNoteBeenSaved by viewModel.hasNoteBeenSaved.collectAsState()
+    val state by noteDetailsComponent.state.subscribeAsState();
 
     LaunchedEffect(key1 = true, block = {
-        viewModel.loadNote(noteDetailsComponent.id)
-    })
-
-    LaunchedEffect(key1 = hasNoteBeenSaved, block = {
-        if (hasNoteBeenSaved) {
-            noteDetailsComponent.onBackToNoteListClicked()
-        }
+        noteDetailsComponent.loadNote()
     })
 
     NoteDetailContent(
-        onBackClick = { noteDetailsComponent.onBackToNoteListClicked() },
-        onSaveClick = viewModel::saveNote,
-        onTitleChange = viewModel::onNoteTitleChanged,
-        onContentChange = viewModel::onNoteContentChanged,
+        onBackClick = { noteDetailsComponent.onBackClicked() },
+        onSaveClick = noteDetailsComponent::onSaveNoteClicked,
+        onTitleChange = noteDetailsComponent::onChangeNoteTitle,
+        onContentChange = noteDetailsComponent::onChangeNoteContent,
         state = state
     )
 }
@@ -69,7 +59,7 @@ fun NoteDetailContent(
     onSaveClick: () -> Unit,
     onTitleChange: (String) -> Unit,
     onContentChange: (String) -> Unit,
-    state: NoteDetailState,
+    state: NoteDetailComponent.State,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -188,7 +178,7 @@ fun NoteDetailScreenPreview() {
                 onSaveClick = { /*TODO*/ },
                 onTitleChange = {},
                 onContentChange = {},
-                state = NoteDetailState()
+                state = NoteDetailComponent.State()
             )
         }
     }
