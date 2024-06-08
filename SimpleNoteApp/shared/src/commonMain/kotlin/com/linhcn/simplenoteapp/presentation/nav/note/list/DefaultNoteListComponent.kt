@@ -5,11 +5,13 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.linhcn.simplenoteapp.domain.note.Note
 import com.linhcn.simplenoteapp.domain.note.NoteDataSource
 import com.linhcn.simplenoteapp.domain.note.SearchNotes
 import com.linhcn.simplenoteapp.presentation.nav.note.list.NoteListComponent.State
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -20,8 +22,9 @@ class DefaultNoteListComponent(
 ) : NoteListComponent, ComponentContext by componentContext {
 
     private val searchNotes = SearchNotes()
-
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var noteList: List<Note> = listOf()
+
     private val _state = MutableValue(State())
     override val state: Value<State> = _state
 
@@ -54,7 +57,7 @@ class DefaultNoteListComponent(
 
     override fun loadNotes() {
         scope.launch {
-            val noteList = noteDataSource.getAllNotes()
+            noteList = noteDataSource.getAllNotes()
             _state.update {
                 it.copy(noteList = noteList)
             }
@@ -64,11 +67,14 @@ class DefaultNoteListComponent(
     override fun deleteNoteById(id: Long) {
         scope.launch {
             noteDataSource.deleteNoteById(id)
+            loadNotes()
         }
     }
 
     override fun onActiveSearch() {
-        TODO("Not yet implemented")
+        _state.update {
+            it.copy(isSearchActive = !it.isSearchActive)
+        }
     }
 
     override fun onItemClicked(id: Long) {
@@ -76,6 +82,11 @@ class DefaultNoteListComponent(
     }
 
     override fun onSearchValueChange(query: String) {
-        TODO("Not yet implemented")
+        _state.update {
+            it.copy(
+                searchValue = query,
+                noteList = searchNotes.invoke(notes = noteList, query)
+            )
+        }
     }
 }

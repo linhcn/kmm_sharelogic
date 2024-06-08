@@ -11,45 +11,58 @@ import shared
 
 struct NoteDetailScreen: View {
     
-    private var noteDataSource: NoteDataSource
-    private var noteId: Int64? = nil
+    private var noteDetailComponent: NoteDetailComponent
     
-    @StateObject var viewModel: NoteDetailViewModel = NoteDetailViewModel(noteDataSource: nil)
-    @Environment(\.presentationMode) var presentationMode
+    @StateValue
+    private var model: NoteDetailComponentState
     
-    init(noteDataSource: NoteDataSource, noteId: Int64? = nil) {
-        self.noteDataSource = noteDataSource
-        self.noteId = noteId
+    init(noteDetailComponent: NoteDetailComponent) {
+        self.noteDetailComponent = noteDetailComponent
+        _model = StateValue(noteDetailComponent.state)
     }
     
     var body: some View {
         ScrollView {
             VStack {
-                TextField("Title", text: $viewModel.noteTitle)
-                    .font(.title)
+                TextField(
+                    "Title",
+                    text: Binding(
+                        get: {model.noteTitle},
+                        set: { value in
+                            noteDetailComponent.onChangeNoteTitle(title: value)
+                        })
+                )
+                .font(.title)
                 Spacer(minLength: 20)
-                TextField("Type something...", text: $viewModel.noteContent)
-                    .font(.body)
+                TextField(
+                    "Type something...",
+                    text: Binding(
+                        get: {model.noteContent},
+                        set: {value in
+                            noteDetailComponent.onChangeNoteContent(noteContent: value)
+                        })
+                )
+                .font(.body)
                 Spacer()
             }
             .padding()
             .onAppear {
-                viewModel.setParamAndLoadNote(noteDataSource: noteDataSource, noteId: noteId)
-                print("NoteDetailScreen onAppear \(String(describing: noteId))")
+                noteDetailComponent.loadNote()
             }
         }
-        .background(Color(hex: viewModel.noteColor))
+        .background(Color(hex: model.colorHex))
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button(
-                action: {presentationMode.wrappedValue.dismiss()},
+                action: {
+                    noteDetailComponent.onBackClicked()
+                },
                 label: { Image(systemName: "chevron.backward") }
             ),
             trailing: Button(
                 action: {
-                    viewModel.saveNote {
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    noteDetailComponent.onSaveNoteClicked()
+                    noteDetailComponent.onBackClicked()
                 },
                 label: {Image(systemName: "checkmark")}
             )

@@ -12,7 +12,7 @@ import shared
 struct NoteItem: View {
     
     var note: Note
-    var onDeleteClick: () -> Void
+    var onDeleteClick: (Note) -> Void
     var onNoteItemClick: (Note) -> Void
     
     var body: some View {
@@ -23,7 +23,7 @@ struct NoteItem: View {
                     .fontWeight(.semibold)
                 Spacer()
                 
-                Button(action: onDeleteClick) {
+                Button(action: {onDeleteClick(note)}) {
                     Image(systemName: "xmark")
                 }
                 .buttonStyle(.plain)
@@ -53,7 +53,7 @@ struct NoteItem_Previews: PreviewProvider {
                 colorHex: 0xFF1234,
                 createDate: DateTimeUtil().now()
             ),
-            onDeleteClick: {},
+            onDeleteClick: {note in},
             onNoteItemClick: {note in}
         )
     }

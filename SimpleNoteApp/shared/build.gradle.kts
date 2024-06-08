@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,6 +10,7 @@ plugins {
 }
 
 kotlin {
+    // target declaration
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -18,30 +18,22 @@ kotlin {
             }
         }
     }
-
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "shared"
-//            isStatic = true
-//        }
-//    }
+    iosX64() // ios simulator
+    iosArm64() // iPhone5 up to
+    iosSimulatorArm64() // simulators on m2 macs
 
     targets.filterIsInstance<KotlinNativeTarget>()
-        .filter { it.konanTarget.family == Family.IOS }
         .forEach {
             it.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                // decompose
+
                 export(libs.decompose)
                 export(libs.essenty.lifecycle.decompose)
             }
         }
 
+    // source set declaration
     sourceSets {
         commonMain.dependencies {
             //put your multiplatform dependencies here
@@ -59,6 +51,9 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
+
+            api(libs.decompose)
+            api(libs.essenty.lifecycle.decompose)
         }
     }
 }

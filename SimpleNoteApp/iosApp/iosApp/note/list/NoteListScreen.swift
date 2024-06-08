@@ -11,13 +11,14 @@ import shared
 
 struct NoteListScreen: View {
     
-    private var noteDataSource: NoteDataSource
-    @StateObject var viewModel = NoteListViewModel(noteDataSource: nil)
-    @State private var noteSelected: Note? = nil
-    @State private var isNoteSelected: Bool = false
+    private var noteListComponent: NoteListComponent
     
-    init(noteDataSource: NoteDataSource) {
-        self.noteDataSource = noteDataSource
+    @StateValue
+    private var model: NoteListComponentState
+    
+    init(noteListComponent: NoteListComponent) {
+        self.noteListComponent = noteListComponent
+        _model = StateValue(noteListComponent.state)
     }
     
     var body: some View {
@@ -25,50 +26,46 @@ struct NoteListScreen: View {
             header
             noteList
                 .onAppear {
-                    viewModel.loadNotes()
+                    noteListComponent.loadNotes()
                 }
-        }.onAppear {
-            viewModel.setNoteDataSource(noteDataSource: noteDataSource)
         }
-        .navigationDestination(isPresented: $isNoteSelected, destination: {
-            NoteDetailScreen(noteDataSource: noteDataSource, noteId: noteSelected?.id?.int64Value)
-        })
     }
     
     var header: some View {
         HStack {
             HideableSearchTextField(
                 onActiveSearch: {
-                    viewModel.onActiveSearch()
+                    noteListComponent.onActiveSearch()
                 },
-                isSearchActive: viewModel.isSearchActive,
-                searchValue: $viewModel.searchValue
+                isSearchActive: model.isSearchActive,
+                searchValue: Binding(get: {model.searchValue}, set: { value in
+                    noteListComponent.onSearchValueChange(query: value)
+                })
             )
             .frame(minHeight: 40)
             Spacer(minLength: 20)
-            NavigationLink(destination: NoteDetailScreen(noteDataSource: noteDataSource)) {
+            Button(action: {
+                noteListComponent.onAddNoteClicked()
+            }, label:{
                 Image(systemName: "plus")
-            }
-            
+            })
         }
         .padding()
     }
     
     var noteList: some View {
         List {
-            ForEach(viewModel.filteredNotes, id: \.self.id) { note in
-                    NoteItem(
-                        note: note,
-                        onDeleteClick: {
-                            viewModel.deleteNoteById(id: note.id?.int64Value)
-                        },
-                        onNoteItemClick: { note in
-                            isNoteSelected = true
-                            noteSelected = note
-                        }
-                    )
+            ForEach(self.model.noteList, id: \.self.id) { note in
+                NoteItem(
+                    note: note,
+                    onDeleteClick: { note in
+                        noteListComponent.deleteNoteById(id: note.id!.int64Value)
+                    },
+                    onNoteItemClick: { note in
+                        noteListComponent.onItemClicked(id: note.id!.int64Value)
+                    }
+                )
             }
-            
         }
         .listStyle(.plain)
         .listRowSeparator(.hidden)

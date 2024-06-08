@@ -4,15 +4,25 @@ import shared
 @main
 struct iOSApp: App {
     
-    private let databaseModule = DatabaseModule()
+    @UIApplicationDelegateAdaptor(AppDelegate.self)
+    var appDelegate: AppDelegate
     
 	var body: some Scene {
 		WindowGroup {
-            NavigationStack {
-                NoteListScreen(
-                    noteDataSource: databaseModule.noteDataSource
-                )
-            }.accentColor(.black)
+            RootView(root: appDelegate.root)
 		}
 	}
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    
+    private let databaseModule = DatabaseModule()
+    let root: RootComponent
+    
+    override init() {
+        root = DefaultRootComponent(
+            componentContext: DefaultComponentContext(lifecycle: LifecycleRegistryKt.LifecycleRegistry()),
+            noteDataSource: databaseModule.noteDataSource
+        )
+    }
 }

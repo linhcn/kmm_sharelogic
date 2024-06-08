@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import com.linhcn.simplenoteapp.presentation.nav.note.detail.NoteDetailComponent.State
+import kotlinx.coroutines.IO
 
 class DefaultNoteDetailComponent(
     private val componentContext: ComponentContext,
