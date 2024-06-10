@@ -30,9 +30,8 @@ struct NoteDetailScreen: View {
                         get: {model.noteTitle},
                         set: { value in
                             noteDetailComponent.onChangeNoteTitle(title: value)
-                        })
-                )
-                .font(.title)
+                        }
+                    )).font(.title)
                 Spacer(minLength: 20)
                 TextField(
                     "Type something...",
@@ -40,9 +39,8 @@ struct NoteDetailScreen: View {
                         get: {model.noteContent},
                         set: {value in
                             noteDetailComponent.onChangeNoteContent(noteContent: value)
-                        })
-                )
-                .font(.body)
+                        }
+                    )).font(.body)
                 Spacer()
             }
             .padding()
@@ -72,7 +70,13 @@ struct NoteDetailScreen: View {
 }
 
 struct NoteDetailScreen_Previews: PreviewProvider {
+    
     static var previews: some View {
-        EmptyView()
+        NoteDetailScreen(noteDetailComponent: DefaultNoteDetailComponent(
+            componentContext: DefaultComponentContext(lifecycle: LifecycleRegistryKt.LifecycleRegistry()),
+            noteDataSource: DatabaseModule().noteDataSource,
+            noteId: -1,
+            onFinished: {}
+        ))
     }
 }
