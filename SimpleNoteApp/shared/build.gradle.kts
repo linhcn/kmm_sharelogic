@@ -28,6 +28,7 @@ kotlin {
                 baseName = "shared"
                 isStatic = true
 
+                // decompose export
                 export(libs.decompose)
                 export(libs.essenty.lifecycle.decompose)
             }
@@ -40,8 +41,8 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.decompose)
             implementation(libs.jetbrains.kotlinx)
+            api(libs.decompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -51,8 +52,6 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
-
-            api(libs.decompose)
             api(libs.essenty.lifecycle.decompose)
         }
     }
