@@ -22,16 +22,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.linhcn.simplenoteapp.android.MyApplicationTheme
-import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.TransparentTextField
+import com.linhcn.simplenoteapp.android.components.stringResource
 import com.linhcn.simplenoteapp.presentation.nav.note.detail.NoteDetailComponent
+import com.linhcn.simplenoteapp.resources.SharedRes
 
 @Composable
 fun NoteDetailScreen(
@@ -150,7 +150,7 @@ fun NoteDetailEditor(
     Column(modifier = modifier) {
         TransparentTextField(
             value = noteTitle,
-            hint = stringResource(id = R.string.title),
+            hint = stringResource(id = SharedRes.strings.title),
             isHintVisible = noteTitle.isEmpty(),
             onValueChange = onTitleChange,
             onFocusChanged = {},
@@ -159,7 +159,7 @@ fun NoteDetailEditor(
         Spacer(modifier = Modifier.height(20.dp))
         TransparentTextField(
             value = noteContent,
-            hint = stringResource(id = R.string.type_something),
+            hint = stringResource(id = SharedRes.strings.type_something),
             isHintVisible = noteContent.isEmpty(),
             onValueChange = onContentChange,
             onFocusChanged = {},

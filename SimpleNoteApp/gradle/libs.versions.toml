@@ -14,6 +14,7 @@ decompose = "3.0.0"
 decompose-extensions = "3.0.0"
 essenty = "2.0.0"
 kotlin-kmp = "1.8.1-Beta"
+moko-resources = "0.24.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -34,6 +35,8 @@ decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decom
 decompose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose-extensions" }
 essenty-lifecycle-decompose = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 jetbrains-kotlinx = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-kmp" }
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
+moko-resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko-resources" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="title_note">Ghi chú</string>
+    <string name="type_something">Điền nội dung...</string>
+    <string name="add_note">Thêm ghi chú</string>
+    <string name="search_by_the_keyword">Tìm theo từ khóa</string>
+    <string name="seach">Tìm kiếm</string>
+    <string name="title">Tiêu đề</string>
+    <string name="notes">Ghi chú</string>
+</resources>

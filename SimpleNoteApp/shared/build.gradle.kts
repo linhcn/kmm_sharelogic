@@ -7,6 +7,7 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     kotlin("plugin.serialization") version "1.9.23"
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -28,8 +29,12 @@ kotlin {
                 baseName = "shared"
                 isStatic = true
 
+                // decompose
                 export(libs.decompose)
                 export(libs.essenty.lifecycle.decompose)
+
+                // resources
+                export(libs.moko.resources)
             }
         }
 
@@ -40,8 +45,9 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.decompose)
             implementation(libs.jetbrains.kotlinx)
+            api(libs.decompose)
+            api(libs.moko.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -51,8 +57,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
-
-            api(libs.decompose)
+            // decompose
             api(libs.essenty.lifecycle.decompose)
         }
     }
@@ -76,4 +81,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+// Moko config share resources
+multiplatformResources {
+    resourcesPackage.set("com.linhcn.simplenoteapp.resources")
+    resourcesClassName.set("SharedRes")
 }

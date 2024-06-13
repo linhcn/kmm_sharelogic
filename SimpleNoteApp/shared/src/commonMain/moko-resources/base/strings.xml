@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="title_note">Note</string>
+    <string name="type_something">Type something...</string>
+    <string name="add_note">Add Note</string>
+    <string name="search_by_the_keyword">Search by keyword</string>
+    <string name="seach">Search</string>
+    <string name="title">Title</string>
+    <string name="notes">Notes</string>
+</resources>

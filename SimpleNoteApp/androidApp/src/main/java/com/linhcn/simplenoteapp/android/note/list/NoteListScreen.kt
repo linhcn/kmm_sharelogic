@@ -23,14 +23,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.linhcn.simplenoteapp.android.R
 import com.linhcn.simplenoteapp.android.components.HideableSearchTextField
+import com.linhcn.simplenoteapp.android.components.stringResource
 import com.linhcn.simplenoteapp.presentation.nav.note.list.NoteListComponent
+import com.linhcn.simplenoteapp.resources.SharedRes
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -49,8 +49,8 @@ fun NoteListScreen(
             FloatingActionButton(onClick = noteListComponent::onAddNoteClicked) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Add note",
-                    tint = Color.White
+                    tint = Color.White,
+                    contentDescription  = stringResource(id = SharedRes.strings.add_note)
                 )
             }
         }
@@ -74,7 +74,7 @@ fun NoteListScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(90.dp),
-                    hint = stringResource(id = R.string.search_by_the_keyword)
+                    hint = stringResource(id = SharedRes.strings.search_by_the_keyword)
                 )
 
                 this@Column.AnimatedVisibility(
@@ -83,7 +83,7 @@ fun NoteListScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = stringResource(id = R.string.notes),
+                        text = stringResource(id = SharedRes.strings.notes),
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )

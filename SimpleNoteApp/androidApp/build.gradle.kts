@@ -48,14 +48,17 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
 
-//    implementation(libs.koin.android)
-
     implementation(libs.kotlinx.datetime)
+
     // dagger & hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
     // decompose
     implementation(libs.decompose)
     implementation(libs.decompose.jetbrains)
+
+    // moko share resources
+    implementation(libs.moko.resources)
 }
