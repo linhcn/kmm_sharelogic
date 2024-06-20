@@ -3,8 +3,8 @@
     <string name="title_note">Ghi chú</string>
     <string name="type_something">Điền nội dung...</string>
     <string name="add_note">Thêm ghi chú</string>
-    <string name="search_by_the_keyword">Tìm theo từ khóa</string>
+    <string name="search_by_the_keyword">Tìm kiếm theo từ khóa</string>
     <string name="seach">Tìm kiếm</string>
     <string name="title">Tiêu đề</string>
-    <string name="notes">Ghi chú</string>
+    <string name="notes">Tất cả ghi chú</string>
 </resources>

@@ -22,13 +22,24 @@ struct NoteListScreen: View {
     }
     
     var body: some View {
-        VStack {
+        VStack (alignment: .trailing){
             header
-            noteList
-                .onAppear {
-                    noteListComponent.loadNotes()
+            Spacer()
+            ZStack (alignment: .center){
+                if (model.noteList.isEmpty) { // TODO
+                    Image(resource: \.box)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: 50)
+                } else {
+                    noteList.onAppear {
+                        noteListComponent.loadNotes()
+                    }
                 }
-        }
+            }
+            Spacer()
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding()
     }
     
     var header: some View {
@@ -50,7 +61,6 @@ struct NoteListScreen: View {
                 Image(systemName: "plus")
             })
         }
-        .padding()
     }
     
     var noteList: some View {
@@ -74,6 +84,10 @@ struct NoteListScreen: View {
 
 struct NoteListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyView()
+        NoteListScreen(noteListComponent: DefaultNoteListComponent(
+            componentContext: DefaultComponentContext(lifecycle: LifecycleRegistryKt.LifecycleRegistry()),
+            onOpenNoteDetail: {id in },
+            noteDataSource: DatabaseModule().noteDataSource
+        ))
     }
 }

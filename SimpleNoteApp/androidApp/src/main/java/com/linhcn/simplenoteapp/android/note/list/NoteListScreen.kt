@@ -4,8 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +25,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +55,7 @@ fun NoteListScreen(
                 Icon(
                     imageVector = Icons.Filled.Add,
                     tint = Color.White,
-                    contentDescription  = stringResource(id = SharedRes.strings.add_note)
+                    contentDescription = stringResource(id = SharedRes.strings.add_note)
                 )
             }
         }
@@ -89,23 +94,42 @@ fun NoteListScreen(
                     )
                 }
             }
-            LazyColumn {
-                items(
-                    items = state.noteList,
-                    key = {
-                        it.id.toString()
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                this@Column.AnimatedVisibility(
+                    visible = state.noteList.isNotEmpty()
+                ) {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(
+                            items = state.noteList,
+                            key = {
+                                it.id.toString()
+                            }
+                        ) { note ->
+                            NoteItem(
+                                note = note,
+                                onNoteClick = {
+                                    noteListComponent.onItemClicked(note.id!!)
+                                },
+                                onNoteDelete = { noteListComponent.deleteNoteById(note.id!!) },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp, horizontal = 10.dp)
+                                    .animateItemPlacement()
+                            )
+                        }
                     }
-                ) { note ->
-                    NoteItem(
-                        note = note,
-                        onNoteClick = {
-                            noteListComponent.onItemClicked(note.id!!)
-                        },
-                        onNoteDelete = { noteListComponent.deleteNoteById(note.id!!) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp, horizontal = 10.dp)
-                            .animateItemPlacement()
+                }
+                this@Column.AnimatedVisibility(
+                    visible = state.noteList.isEmpty(),
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    Image(
+                        painter = painterResource(id = SharedRes.images.box.drawableResId),
+                        contentDescription = "Note Empty"
                     )
                 }
             }

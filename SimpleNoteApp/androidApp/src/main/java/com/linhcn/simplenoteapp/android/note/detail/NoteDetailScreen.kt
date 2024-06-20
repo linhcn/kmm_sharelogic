@@ -32,6 +32,7 @@ import com.linhcn.simplenoteapp.android.components.TransparentTextField
 import com.linhcn.simplenoteapp.android.components.stringResource
 import com.linhcn.simplenoteapp.presentation.nav.note.detail.NoteDetailComponent
 import com.linhcn.simplenoteapp.resources.SharedRes
+import dev.icerock.moko.resources.desc.desc
 
 @Composable
 fun NoteDetailScreen(

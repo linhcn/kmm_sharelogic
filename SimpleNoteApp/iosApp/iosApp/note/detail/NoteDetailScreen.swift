@@ -25,7 +25,7 @@ struct NoteDetailScreen: View {
         ScrollView {
             VStack {
                 TextField(
-                    "Title",
+                    SharedRes.strings().title.desc().localized(),
                     text: Binding(
                         get: {model.noteTitle},
                         set: { value in
@@ -34,7 +34,7 @@ struct NoteDetailScreen: View {
                     )).font(.title)
                 Spacer(minLength: 20)
                 TextField(
-                    "Type something...",
+                    SharedRes.strings().type_something.desc().localized(),
                     text: Binding(
                         get: {model.noteContent},
                         set: {value in
