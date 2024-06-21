@@ -1,5 +1,7 @@
 package com.linhcn.simplenoteapp.presentation
 
+import com.linhcn.simplenoteapp.resources.SharedRes
+
 const val GreenLightHex = 0xFF91F48F
 const val PinkSalmonLightHex = 0xFFFF9E9E
 const val YellowPastelHex = 0xFFFFF599

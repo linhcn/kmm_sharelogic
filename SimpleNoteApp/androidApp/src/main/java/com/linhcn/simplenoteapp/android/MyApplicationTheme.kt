@@ -10,10 +10,12 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.linhcn.simplenoteapp.resources.SharedRes
 
 @Composable
 fun MyApplicationTheme(
@@ -42,11 +44,10 @@ fun MyApplicationTheme(
         )
     }
     val typography = Typography(
-        bodyMedium = TextStyle(
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp
-        )
+        bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = myFontFamily),
+        headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = myFontFamily),
+        bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = myFontFamily),
+        bodySmall = defaultTypography.bodySmall.copy(fontFamily = myFontFamily)
     )
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
@@ -61,3 +62,26 @@ fun MyApplicationTheme(
         content = content
     )
 }
+
+val myFontFamily = FontFamily(
+    fonts = listOf(
+        Font(
+            resId = SharedRes.fonts.playwrite_regular.fontResourceId,
+            weight = FontWeight.Normal,
+        ),
+        Font(
+            resId = SharedRes.fonts.playwrite_thin.fontResourceId,
+            weight = FontWeight.Thin,
+        ),
+        Font(
+            resId = SharedRes.fonts.playwrite_light.fontResourceId,
+            weight = FontWeight.Light,
+        ),
+        Font(
+            resId = SharedRes.fonts.playwrite_extralight.fontResourceId,
+            weight = FontWeight.ExtraLight,
+        ),
+    )
+)
+
+internal val defaultTypography = Typography()

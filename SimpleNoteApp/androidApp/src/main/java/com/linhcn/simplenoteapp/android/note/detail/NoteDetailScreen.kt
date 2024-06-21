@@ -155,7 +155,7 @@ fun NoteDetailEditor(
             isHintVisible = noteTitle.isEmpty(),
             onValueChange = onTitleChange,
             onFocusChanged = {},
-            textStyle = TextStyle(fontSize = 26.sp, color = MaterialTheme.colorScheme.onSurface)
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface)
         )
         Spacer(modifier = Modifier.height(20.dp))
         TransparentTextField(
@@ -164,7 +164,7 @@ fun NoteDetailEditor(
             isHintVisible = noteContent.isEmpty(),
             onValueChange = onContentChange,
             onFocusChanged = {},
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface)
+            textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface)
         )
     }
 }

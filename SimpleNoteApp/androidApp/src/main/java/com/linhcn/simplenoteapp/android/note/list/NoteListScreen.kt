@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -89,8 +90,7 @@ fun NoteListScreen(
                 ) {
                     Text(
                         text = stringResource(id = SharedRes.strings.notes),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp
+                        style = MaterialTheme.typography.headlineLarge
                     )
                 }
             }

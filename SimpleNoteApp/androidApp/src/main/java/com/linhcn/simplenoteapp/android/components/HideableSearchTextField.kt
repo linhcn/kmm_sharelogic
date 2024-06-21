@@ -32,7 +32,10 @@ fun HideableSearchTextField(
     isSearchActive: Boolean,
     onCloseClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    textSearchStyle: TextStyle = MaterialTheme.typography.bodyLarge.copy(
+        color = MaterialTheme.colorScheme.onSurface,
+    )
 ) {
     Box(
         modifier = modifier,
@@ -47,10 +50,7 @@ fun HideableSearchTextField(
             TransparentTextField(
                 value = value,
                 onValueChange = onValueChange,
-                textStyle = TextStyle(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp
-                ),
+                textStyle = textSearchStyle,
                 onFocusChanged = {},
                 hint = hint,
                 singleLine = true,

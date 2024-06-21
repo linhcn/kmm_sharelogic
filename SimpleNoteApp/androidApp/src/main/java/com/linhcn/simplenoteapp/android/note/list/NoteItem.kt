@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -50,9 +51,7 @@ fun NoteItem(
         ) {
             Text(
                 text = note.title,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp,
-                style = TextStyle(color = Color.Black)
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Black, fontWeight = FontWeight.SemiBold)
             )
             Icon(
                 imageVector = Icons.Default.Delete,
@@ -63,8 +62,7 @@ fun NoteItem(
         Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = note.content,
-            fontWeight = FontWeight.Light,
-            style = TextStyle(color = Color.Black)
+            style = MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
         )
     }
 }
