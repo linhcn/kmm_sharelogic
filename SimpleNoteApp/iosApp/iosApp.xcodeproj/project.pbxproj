@@ -20,6 +20,7 @@
 		E4804D842C0CA766004B70D4 /* StateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4804D832C0CA766004B70D4 /* StateValue.swift */; };
 		E4804D862C0CA790004B70D4 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4804D852C0CA790004B70D4 /* ObservableValue.swift */; };
 		E4A137692C23418800F059EA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A137682C23418800F059EA /* Image.swift */; };
+		E4A1376B2C25D58E00F059EA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1376A2C25D58E00F059EA /* Font.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,7 @@
 		E4804D832C0CA766004B70D4 /* StateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValue.swift; sourceTree = "<group>"; };
 		E4804D852C0CA790004B70D4 /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
 		E4A137682C23418800F059EA /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		E4A1376A2C25D58E00F059EA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				E4A137682C23418800F059EA /* Image.swift */,
+				E4A1376A2C25D58E00F059EA /* Font.swift */,
 			);
 			path = moko;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				E4804D7E2C0C9F92004B70D4 /* RootView.swift in Sources */,
 				E44CACEB2BB5C61A00979DC7 /* NoteItem.swift in Sources */,
 				E44CACEE2BB5CA9600979DC7 /* Color.swift in Sources */,
+				E4A1376B2C25D58E00F059EA /* Font.swift in Sources */,
 				E4804D842C0CA766004B70D4 /* StateValue.swift in Sources */,
 				E4A137692C23418800F059EA /* Image.swift in Sources */,
 				E4804D822C0CA677004B70D4 /* StackView.swift in Sources */,

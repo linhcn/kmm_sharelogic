@@ -19,8 +19,7 @@ struct NoteItem: View {
         VStack (alignment: .leading) {
             HStack {
                 Text(note.title)
-                    .font(.title3)
-                    .fontWeight(.semibold)
+                    .font(.customFont(size: 16.0))
                 Spacer()
                 
                 Button(action: {onDeleteClick(note)}) {
@@ -31,8 +30,8 @@ struct NoteItem: View {
             }.padding(.bottom, 3)
             
             Text(note.content)
-                .fontWeight(.light)
                 .padding(.bottom, 3)
+                .font(.customFont(.LIGHT, size: 14))
         }
         .padding()
         .background(Color(hex: note.colorHex))

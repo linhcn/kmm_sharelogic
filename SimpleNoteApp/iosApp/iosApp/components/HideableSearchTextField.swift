@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import shared
 
 struct HideableSearchTextField: View {
     
@@ -17,7 +18,8 @@ struct HideableSearchTextField: View {
     
     var body: some View {
         HStack {
-            TextField("Search...", text: $searchValue)
+            TextField(SharedRes.strings().search_by_the_keyword.desc().localized(), text: $searchValue)
+                .font(.customFont(size: 16.0))
                 .textFieldStyle(.roundedBorder)
                 .opacity(isSearchActive ?  1: 0)
             

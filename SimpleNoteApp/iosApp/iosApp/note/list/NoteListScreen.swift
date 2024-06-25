@@ -8,6 +8,7 @@
 
 import SwiftUI
 import shared
+import Combine
 
 struct NoteListScreen: View {
     
@@ -15,6 +16,7 @@ struct NoteListScreen: View {
     
     @StateValue
     private var model: NoteListComponentState
+
     
     init(noteListComponent: NoteListComponent) {
         self.noteListComponent = noteListComponent
@@ -24,22 +26,22 @@ struct NoteListScreen: View {
     var body: some View {
         VStack (alignment: .trailing){
             header
+                .padding(.horizontal)
             Spacer()
             ZStack (alignment: .center){
-                if (model.noteList.isEmpty) { // TODO
+                if (model.noteList.isEmpty) {
                     Image(resource: \.box)
                         .resizable()
                         .scaledToFit()
                         .frame(minWidth: 50)
                 } else {
-                    noteList.onAppear {
-                        noteListComponent.loadNotes()
-                    }
+                    noteList
                 }
+            }.onAppear {
+                noteListComponent.loadNotes()
             }
             Spacer()
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding()
     }
     
     var header: some View {
@@ -65,7 +67,7 @@ struct NoteListScreen: View {
     
     var noteList: some View {
         List {
-            ForEach(self.model.noteList, id: \.self.id) { note in
+            ForEach(model.noteList, id: \.self.id) { note in
                 NoteItem(
                     note: note,
                     onDeleteClick: { note in

@@ -31,7 +31,7 @@ struct NoteDetailScreen: View {
                         set: { value in
                             noteDetailComponent.onChangeNoteTitle(title: value)
                         }
-                    )).font(.title)
+                    )).font(.customFont(size: 18.0))
                 Spacer(minLength: 20)
                 TextField(
                     SharedRes.strings().type_something.desc().localized(),
@@ -40,7 +40,7 @@ struct NoteDetailScreen: View {
                         set: {value in
                             noteDetailComponent.onChangeNoteContent(noteContent: value)
                         }
-                    )).font(.body)
+                    )).font(.customFont(size: 14.0))
                 Spacer()
             }
             .padding()
