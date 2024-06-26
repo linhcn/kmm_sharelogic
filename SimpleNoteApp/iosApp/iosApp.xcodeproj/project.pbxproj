@@ -86,9 +86,9 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				E44CACEC2BB5CA7300979DC7 /* utils */,
-				E44CACE72BB5BFD200979DC7 /* components */,
-				E44CACE02BB5BC3E00979DC7 /* note */,
+				E44CACEC2BB5CA7300979DC7 /* Utils */,
+				E44CACE72BB5BFD200979DC7 /* Components */,
+				E44CACE02BB5BC3E00979DC7 /* Note */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
@@ -104,13 +104,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E44CACE02BB5BC3E00979DC7 /* note */ = {
+		E44CACE02BB5BC3E00979DC7 /* Note */ = {
 			isa = PBXGroup;
 			children = (
 				E44CACE22BB5BC5000979DC7 /* detail */,
 				E44CACE12BB5BC4800979DC7 /* list */,
 			);
-			path = note;
+			path = Note;
 			sourceTree = "<group>";
 		};
 		E44CACE12BB5BC4800979DC7 /* list */ = {
@@ -132,20 +132,20 @@
 			path = detail;
 			sourceTree = "<group>";
 		};
-		E44CACE72BB5BFD200979DC7 /* components */ = {
+		E44CACE72BB5BFD200979DC7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				E44CACE82BB5BFFA00979DC7 /* HideableSearchTextField.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
-		E44CACEC2BB5CA7300979DC7 /* utils */ = {
+		E44CACEC2BB5CA7300979DC7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E44CACED2BB5CA9600979DC7 /* Color.swift */,
 			);
-			path = utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
